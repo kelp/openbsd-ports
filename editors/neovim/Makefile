@@ -4,7 +4,7 @@ COMMENT =	continuation and extension of Vim
 
 GH_ACCOUNT =	neovim
 GH_PROJECT =	neovim
-GH_TAGNAME =	v0.3.8
+GH_TAGNAME =	v0.4.2
 
 CATEGORIES =	editors devel
 HOMEPAGE =	https://neovim.io
@@ -13,8 +13,8 @@ MAINTAINER =	Edd Barrett <edd@openbsd.org>
 # Apache 2.0 + Vim License
 PERMIT_PACKAGE =	Yes
 
-WANTLIB += c iconv intl ${MODLUA_WANTLIB} m msgpackc pthread termkey
-WANTLIB += unibilium util uv vterm
+WANTLIB += c iconv intl luv ${MODLUA_WANTLIB} m msgpackc pthread termkey
+WANTLIB += unibilium=1.0 util uv vterm=0.1
 
 COMPILER =		base-clang ports-gcc base-gcc
 
@@ -24,12 +24,14 @@ MODULES =		devel/cmake \
 
 BUILD_DEPENDS =		${RUN_DEPENDS} \
 			devel/gperf \
+			devel/libluv \
 			devel/lpeg \
 			devel/lua-bitop
 
 LIB_DEPENDS =		devel/gettext,-runtime \
 			devel/libtermkey \
 			devel/libuv \
+			devel/libluv \
 			devel/libvterm \
 			devel/msgpack \
 			devel/unibilium
@@ -38,7 +40,7 @@ RUN_DEPENDS +=		devel/libmpack/lua \
 			devel/libmpack/main \
 			devel/desktop-file-utils
 
-MAKE_FLAGS +=		USE_BUNDLED_DEPS=OFF
+MAKE_FLAGS +=		USE_BUNDLED=OFF
 CONFIGURE_ARGS +=	-DLUA_PRG=${MODLUA_BIN} \
 			-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} \
 			-DLUA_LIBRARIES=${MODLUA_LIB} \
