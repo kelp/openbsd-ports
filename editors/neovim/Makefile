@@ -24,14 +24,13 @@ MODULES =		devel/cmake \
 
 BUILD_DEPENDS =		${RUN_DEPENDS} \
 			devel/gperf \
-			devel/libluv \
 			devel/lpeg \
 			devel/lua-bitop
 
 LIB_DEPENDS =		devel/gettext,-runtime \
 			devel/libtermkey \
 			devel/libuv \
-			devel/libluv \
+			devel/luv \
 			devel/libvterm \
 			devel/msgpack \
 			devel/unibilium
