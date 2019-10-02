@@ -12,7 +12,7 @@ HOMEPAGE =	http://www.leonerd.org.uk/code/libtermkey/
 # MIT
 PERMIT_PACKAGE =	Yes
 
-WANTLIB +=	unibilium
+WANTLIB +=	unibilium=1.0	# 2.0.0
 
 MASTER_SITES =	${HOMEPAGE}
 
