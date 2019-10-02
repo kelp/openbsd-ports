@@ -25,7 +25,7 @@ WANTLIB +=		uv
 BUILD_DEPENDS =		devel/cmake \
 			devel/lua-compat53
 
-LIB_DEPENDS =		devel/libuv \
+LIB_DEPENDS =		devel/libuv
 
 CONFIGURE_ARGS =	-DWITH_SHARED_LIBUV=ON \
 			-DWITH_LUA_ENGINE=Lua \
