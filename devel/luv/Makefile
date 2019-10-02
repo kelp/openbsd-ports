@@ -1,13 +1,12 @@
 # $OpenBSD$
 
-COMMENT =		libuv bindings for luajit and lua
+COMMENT =		libuv bindings for LuaJIT and Lua
 
 VER =			1.30.1-1
-PKGVER =		1.30.1.1
 DISTNAME =		luv-${VER}
-PKGNAME = 		libluv-${PKGVER}
+PKGNAME = 		luv-${VER:S/-/./g}
 
-SHARED_LIBS +=		luv 	0.0
+SHARED_LIBS +=		luv 0.0
 
 CATEGORIES =		devel
 
@@ -21,20 +20,20 @@ MASTER_SITES =		${HOMEPAGE}/releases/download/${VER}/
 MODULES +=		devel/cmake \
 			lang/lua
 
-WANTLIB +=		uv pthread
+WANTLIB +=		uv
 
 BUILD_DEPENDS =		devel/cmake \
-			devel/libuv
-		
+			devel/lua-compat53
 
-LIB_DEPENDS =		devel/libuv
+LIB_DEPENDS =		devel/libuv \
 
 CONFIGURE_ARGS =	-DWITH_SHARED_LIBUV=ON \
-					-DWITH_LUA_ENGINE=Lua \
-					-DLUA_BUILD_TYPE=System \
-					-DBUILD_MODULE=OFF \
-					-DBUILD_SHARED_LIBS=ON \
+			-DWITH_LUA_ENGINE=Lua \
+			-DLUA_BUILD_TYPE=System \
+			-DBUILD_MODULE=OFF \
+			-DBUILD_SHARED_LIBS=ON \
 
-NO_TEST =			YES
+NO_TEST =		YES
+SEPARATE_BUILD =	YES
 
 .include <bsd.port.mk>
