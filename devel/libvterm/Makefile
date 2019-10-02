@@ -1,4 +1,4 @@
-# $OpenBSD: $
+# $OpenBSD$
 
 COMMENT =	VT220/xterm/ECMA-48 terminal emulator library
 # No releases, so use date and a git hash.
