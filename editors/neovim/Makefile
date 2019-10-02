@@ -30,8 +30,8 @@ BUILD_DEPENDS =		${RUN_DEPENDS} \
 LIB_DEPENDS =		devel/gettext,-runtime \
 			devel/libtermkey \
 			devel/libuv \
-			devel/luv \
 			devel/libvterm \
+			devel/luv \
 			devel/msgpack \
 			devel/unibilium
 
