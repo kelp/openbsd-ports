@@ -14,7 +14,7 @@ MAINTAINER =	Edd Barrett <edd@openbsd.org>
 PERMIT_PACKAGE =	Yes
 
 WANTLIB += c iconv intl luv ${MODLUA_WANTLIB} m msgpackc pthread termkey
-WANTLIB += unibilium=1.0 util uv vterm=0.1
+WANTLIB += unibilium>=1.0 util uv vterm>=0.1
 
 COMPILER =		base-clang ports-gcc base-gcc
 
