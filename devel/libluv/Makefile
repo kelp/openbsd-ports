@@ -2,7 +2,7 @@
 
 COMMENT =		shared library of "luv" Lua bindings for libuv
 
-VER =			1.30.1-1
+VER =			1.32.0-0
 DISTNAME =		luv-${VER}
 PKGNAME =		libluv-${VER:S/-/./g}
 
