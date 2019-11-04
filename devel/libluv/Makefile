@@ -1,10 +1,10 @@
 # $OpenBSD$
 
-COMMENT =		libuv bindings for LuaJIT and Lua
+COMMENT =		shared library of "luv" Lua bindings for libuv
 
-VER =			1.30.1-1
+VER =			1.32.0-0
 DISTNAME =		luv-${VER}
-PKGNAME =		luv-${VER:S/-/./g}
+PKGNAME =		libluv-${VER:S/-/./g}
 
 SHARED_LIBS +=		luv 0.0
 
