@@ -8,7 +8,7 @@ GH_ACCOUNT =	neovim
 GH_PROJECT =	unibilium
 GH_TAGNAME =	v${VERSION}
 
-SHARED_LIBS +=	unibilium	1.0 # 3.0
+SHARED_LIBS +=	unibilium	1.0 # 4.0
 
 CATEGORIES =	devel
 
