@@ -14,7 +14,7 @@ MAINTAINER =	Edd Barrett <edd@openbsd.org>
 PERMIT_PACKAGE =	Yes
 
 WANTLIB += c iconv intl ${MODLUA_WANTLIB} m msgpackc pthread termkey
-WANTLIB += unibilium>=1.0 util uv vterm>=0.1
+WANTLIB += unibilium util uv vterm
 
 COMPILER =		base-clang ports-gcc base-gcc
 
@@ -30,9 +30,9 @@ BUILD_DEPENDS =		${RUN_DEPENDS} \
 LIB_DEPENDS =		devel/gettext,-runtime \
 			devel/libtermkey \
 			devel/libuv \
-			devel/libvterm \
+			devel/libvterm>=1.0 \
 			devel/msgpack \
-			devel/unibilium
+			devel/unibilium>=1.0
 
 RUN_DEPENDS +=		devel/libmpack/lua \
 			devel/libmpack/main \
@@ -62,8 +62,10 @@ TEST_DEPENDS =	shells/bash \
 		editors/py-neovim \
 		editors/py-neovim,python3
 
-# Build third-party dependencies first. This is necessary because we require
-# the bundled libluv.
+# Build third-party dependencies first for libluv. We opted not to create a 
+# libluv port because it must be built for a specific Lua version and we don't
+# know what version future ports might need. Currently no other port requires 
+# libluv, so it's simpler to use the bundled library.
 pre-configure:
 	mkdir -p ${WRKBUILD}/.deps
 	cd ${WRKBUILD}/.deps && cmake ${CONFIGURE_ARGS} ${WRKSRC}/third-party && \
