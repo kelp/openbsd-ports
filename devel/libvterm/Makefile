@@ -8,7 +8,7 @@ DISTNAME =	libvterm-${VERSION}
 
 GH_ACCOUNT =	neovim
 GH_PROJECT =	libvterm
-# Note this git sha is from the nvim branch because 
+# Note this git sha is from the nvim branch because
 # Neovim requires patches from this branch to build.
 # see https://github.com/neovim/neovim/wiki/Deps
 GH_COMMIT =	7c72294d84ce20da4c27362dbd7fa4b08cfc91da
