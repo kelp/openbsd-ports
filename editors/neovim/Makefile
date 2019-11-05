@@ -62,9 +62,9 @@ TEST_DEPENDS =	shells/bash \
 		editors/py-neovim \
 		editors/py-neovim,python3
 
-# Build third-party dependencies first for libluv. We opted not to create a 
+# Build third-party dependencies first for libluv. We opted not to create a
 # libluv port because it must be built for a specific Lua version and we don't
-# know what version future ports might need. Currently no other port requires 
+# know what version future ports might need. Currently no other port requires
 # libluv, so it's simpler to use the bundled library.
 pre-configure:
 	mkdir -p ${WRKBUILD}/.deps
