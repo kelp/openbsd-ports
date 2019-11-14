@@ -21,6 +21,8 @@ DISTFILES  =	${DISTNAME}${EXTRACT_SUFX} \
 # Apache 2.0 + Vim License
 PERMIT_PACKAGE =	Yes
 
+DEBUG_PACKAGES =        ${BUILD_PACKAGES}
+
 WANTLIB += c iconv intl ${MODLUA_WANTLIB} m msgpackc pthread termkey
 WANTLIB += unibilium util uv vterm
 
