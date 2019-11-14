@@ -72,9 +72,9 @@ pre-configure:
 		cmake -DWITH_LUA_ENGINE=Lua \
 		-DLUA_LIBRARIES=${MODLUA_LIB} \
 		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} -DBUILD_MODULE=OFF \
-		-DLUA_BUILD_TYPE=System \
+		-DLUA_BUILD_TYPE=System -DCMAKE_COLOR_MAKEFILE=OFF \
 		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps ${WRKDIR}/${LUV} && \
-		${MAKE} install)
+		${MAKE_PROGRAM} install)
 
 # These are the "old tests". There is also a new suite, but we would need the
 # "busted" test suite for Lua, which is not yet ported.
