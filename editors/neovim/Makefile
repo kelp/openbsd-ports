@@ -10,8 +10,7 @@ CATEGORIES =	editors devel
 HOMEPAGE =	https://neovim.io
 MAINTAINER =	Edd Barrett <edd@openbsd.org>
 
-# Neovim must be statically linked with libluv because there isn't yet a
-# libluv port.
+# Neovim must be statically linked with libluv, which isn't yet ported.
 LUV_VER    =	1.30.1-1
 LUV	   =	luv-${LUV_VER}
 MASTER_SITES0 = https://github.com/luvit/luv/releases/download/${LUV_VER}/
