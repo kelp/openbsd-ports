@@ -4,11 +4,19 @@ COMMENT =	continuation and extension of Vim
 
 GH_ACCOUNT =	neovim
 GH_PROJECT =	neovim
-GH_TAGNAME =	v0.4.2
+GH_TAGNAME =	v0.4.3
 
 CATEGORIES =	editors devel
 HOMEPAGE =	https://neovim.io
 MAINTAINER =	Edd Barrett <edd@openbsd.org>
+
+# Neovim must be statically linked with libluv because there isn't yet a
+# libluv port.
+LUV_VER    =	1.30.1-1
+LUV	   =	luv-${LUV_VER}
+MASTER_SITES0 = https://github.com/luvit/luv/releases/download/${LUV_VER}/
+DISTFILES  =	${DISTNAME}${EXTRACT_SUFX} \
+		${LUV}${EXTRACT_SUFX}:0
 
 # Apache 2.0 + Vim License
 PERMIT_PACKAGE =	Yes
@@ -42,17 +50,8 @@ MAKE_FLAGS +=		USE_BUNDLED=OFF
 CONFIGURE_ARGS +=	-DLUA_PRG=${MODLUA_BIN} \
 			-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} \
 			-DLUA_LIBRARIES=${MODLUA_LIB} \
-			-DUSE_BUNDLED_GPERF=Off \
-			-DUSE_BUNDLED_UNIBILIUM=Off \
-			-DUSE_BUNDLED_LIBTERMKEY=Off \
-			-DUSE_BUNDLED_LIBVTERM=Off \
-			-DUSE_BUNDLED_LIBUV=Off \
-			-DUSE_BUNDLED_MSGPACK=Off \
-			-DUSE_BUNDLED_LUAJIT=Off \
-			-DUSE_BUNDLED_LUAROCKS=Off \
-			-DUSE_BUNDLED_LUV=On \
-			-DLIBLUV_INCLUDE_DIR=${WRKBUILD}/.deps/usr/include \
-			-DLIBLUV_LIBRARY=${WRKBUILD}/.deps/usr/lib/libluv.a \
+			-DLIBLUV_INCLUDE_DIR=${WRKBUILD}/deps/include \
+			-DLIBLUV_LIBRARY=${WRKBUILD}/deps/lib/libluv.a \
 			-DPREFER_LUA=ON # disables LuaJIT
 
 # Tests need gmake
@@ -62,14 +61,19 @@ TEST_DEPENDS =	shells/bash \
 		editors/py-neovim \
 		editors/py-neovim,python3
 
-# Build third-party dependencies first for libluv. We opted not to create a
-# libluv port because it must be built for a specific Lua version and we don't
-# know what version future ports might need. Currently no other port requires
-# libluv, so it's simpler to use the bundled library.
+# Build libluv first as a static library. We opted not to create a libluv
+# port because it must be built for a specific Lua version and we don't know
+# what version future ports might need. Currently no other port requires
+# libluv, so it's simpler to build a static library here.
 pre-configure:
-	mkdir -p ${WRKBUILD}/.deps
-	cd ${WRKBUILD}/.deps && cmake ${CONFIGURE_ARGS} ${WRKSRC}/third-party && \
-		${MAKE_PROGRAM}
+	@mkdir -p ${WRKBUILD}/build
+	@(cd ${WRKBUILD}/build && \
+		cmake -DWITH_LUA_ENGINE=Lua \
+		-DLUA_LIBRARIES=${MODLUA_LIB} \
+		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} -DBUILD_MODULE=OFF \
+		-DLUA_BUILD_TYPE=System \
+		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps ${WRKDIR}/${LUV} && \
+		${MAKE} install)
 
 # These are the "old tests". There is also a new suite, but we would need the
 # "busted" test suite for Lua, which is not yet ported.
