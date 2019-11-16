@@ -66,15 +66,22 @@ TEST_DEPENDS =	shells/bash \
 # port because it must be built for a specific Lua version and we don't know
 # what version future ports might need. Currently no other port requires
 # libluv, so it's simpler to build a static library here.
+#
+# Most of this target is lifted from ${MODCMAKE_configure} in cmake.port.mk.
+# Unfortunately we can't use it directly, as some of the arguments make
+# assumptions that can't work for us here.
 pre-configure:
-	@mkdir -p ${WRKBUILD}/build
-	@(cd ${WRKBUILD}/build && \
-		cmake -DWITH_LUA_ENGINE=Lua \
-		-DLUA_LIBRARIES=${MODLUA_LIB} \
+	mkdir -p ${WRKBUILD}/build
+	cd ${WRKBUILD}/build && \
+		${SETENV} CC="${CC}" CXX="${CXX}" \
+		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" \
+		${CONFIGURE_ENV} ${LOCALBASE}/bin/cmake  \
+		-DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON \
+		-DWITH_LUA_ENGINE=Lua -DLUA_LIBRARIES=${MODLUA_LIB} \
 		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} -DBUILD_MODULE=OFF \
 		-DLUA_BUILD_TYPE=System -DCMAKE_COLOR_MAKEFILE=OFF \
 		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps ${WRKDIR}/${LUV} && \
-		${MAKE_PROGRAM} install)
+		env VERBOSE=1 ${MAKE_PROGRAM} && ${MAKE_PROGRAM} install
 
 # These are the "old tests". There is also a new suite, but we would need the
 # "busted" test suite for Lua, which is not yet ported.
