@@ -81,7 +81,7 @@ pre-configure:
 		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} -DBUILD_MODULE=OFF \
 		-DLUA_BUILD_TYPE=System -DCMAKE_COLOR_MAKEFILE=OFF \
 		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps ${WRKDIR}/${LUV} && \
-		env VERBOSE=1 ${MAKE_PROGRAM} && ${MAKE_PROGRAM} install
+		${SETENV} VERBOSE=1 ${MAKE_PROGRAM} && ${MAKE_PROGRAM} install
 
 # These are the "old tests". There is also a new suite, but we would need the
 # "busted" test suite for Lua, which is not yet ported.
@@ -89,7 +89,7 @@ pre-configure:
 # There is currently one (minor) test failure:
 # https://github.com/neovim/neovim/issues/10420
 do-test:
-	cd ${WRKSRC}/src/nvim/testdir && env LC_CTYPE=en_US.UTF-8 \
+	cd ${WRKSRC}/src/nvim/testdir && ${SETENV} LC_CTYPE=en_US.UTF-8 \
 		${MAKE_PROGRAM} NVIM_PRG=${WRKBUILD}/bin/nvim ${MAKE_FLAGS}
 
 .include <bsd.port.mk>
