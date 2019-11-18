@@ -13,8 +13,6 @@ GH_PROJECT =	libvterm
 # see https://github.com/neovim/neovim/wiki/Deps
 GH_COMMIT =	7c72294d84ce20da4c27362dbd7fa4b08cfc91da
 
-# Note upstream doesn't bump the library version properly.
-# Diff the headers and check for bump-worthy changes.
 SHARED_LIBS +=  vterm                     1.0 # 0.0
 
 CATEGORIES =	devel
