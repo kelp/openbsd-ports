@@ -73,22 +73,23 @@ TEST_DEPENDS =	shells/bash \
 pre-configure:
 	mkdir -p ${WRKBUILD}/build
 	cd ${WRKBUILD}/build && \
-		${SETENV} CC="${CC}"
+		${SETENV} CC="${CC}" \
 		CXX="${CXX}" \
-		CFLAGS="${CFLAGS}"
+		CFLAGS="${CFLAGS}" \
 		CXXFLAGS="${CXXFLAGS}" \
 		${CONFIGURE_ENV} \
 		${LOCALBASE}/bin/cmake \
-		-DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON \
-		-DWITH_LUA_ENGINE=Lua \
-		-DLUA_LIBRARIES=${MODLUA_LIB} \
-		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR}
 		-DBUILD_MODULE=OFF \
-		-DLUA_BUILD_TYPE=System \
 		-DCMAKE_COLOR_MAKEFILE=OFF \
+		-DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON \
 		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps \
+		-DLUA_BUILD_TYPE=System \
+		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} \
+		-DLUA_LIBRARIES=${MODLUA_LIB} \
+		-DWITH_LUA_ENGINE=Lua \
 		${WRKDIR}/${LUV} && \
-		${SETENV} VERBOSE=1 ${MAKE_PROGRAM} && \
+		${SETENV} VERBOSE=1 \
+		${MAKE_PROGRAM} && \
 		${MAKE_PROGRAM} install
 
 # These are the "old tests". There is also a new suite, but we would need the
