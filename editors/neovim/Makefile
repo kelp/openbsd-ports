@@ -11,16 +11,16 @@ HOMEPAGE =	https://neovim.io
 MAINTAINER =	Edd Barrett <edd@openbsd.org>
 
 # Neovim must be statically linked with libluv, which isn't yet ported.
-LUV_VER    =	1.30.1-1
-LUV	   =	luv-${LUV_VER}
-MASTER_SITES0 = https://github.com/luvit/luv/releases/download/${LUV_VER}/
-DISTFILES  =	${DISTNAME}${EXTRACT_SUFX} \
+LUV_VER =	1.30.1-1
+LUV =		luv-${LUV_VER}
+MASTER_SITES0 =	https://github.com/luvit/luv/releases/download/${LUV_VER}/
+DISTFILES =	${DISTNAME}${EXTRACT_SUFX} \
 		${LUV}${EXTRACT_SUFX}:0
 
 # Apache 2.0 + Vim License
 PERMIT_PACKAGE =	Yes
 
-DEBUG_PACKAGES =        ${BUILD_PACKAGES}
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
 
 WANTLIB += c iconv intl ${MODLUA_WANTLIB} m msgpackc pthread termkey
 WANTLIB += unibilium util uv vterm
@@ -39,9 +39,9 @@ BUILD_DEPENDS =		${RUN_DEPENDS} \
 LIB_DEPENDS =		devel/gettext,-runtime \
 			devel/libtermkey \
 			devel/libuv \
-			devel/libvterm>=1.0 \
+			devel/libvterm \
 			devel/msgpack \
-			devel/unibilium>=1.0
+			devel/unibilium
 
 RUN_DEPENDS +=		devel/libmpack/lua \
 			devel/libmpack/main \
@@ -73,15 +73,24 @@ TEST_DEPENDS =	shells/bash \
 pre-configure:
 	mkdir -p ${WRKBUILD}/build
 	cd ${WRKBUILD}/build && \
-		${SETENV} CC="${CC}" CXX="${CXX}" \
-		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" \
-		${CONFIGURE_ENV} ${LOCALBASE}/bin/cmake  \
+		${SETENV} CC="${CC}" \
+		CXX="${CXX}" \
+		CFLAGS="${CFLAGS}" \
+		CXXFLAGS="${CXXFLAGS}" \
+		${CONFIGURE_ENV} \
+		${LOCALBASE}/bin/cmake \
+		-DBUILD_MODULE=OFF \
+		-DCMAKE_COLOR_MAKEFILE=OFF \
 		-DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY=ON \
-		-DWITH_LUA_ENGINE=Lua -DLUA_LIBRARIES=${MODLUA_LIB} \
-		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} -DBUILD_MODULE=OFF \
-		-DLUA_BUILD_TYPE=System -DCMAKE_COLOR_MAKEFILE=OFF \
-		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps ${WRKDIR}/${LUV} && \
-		${SETENV} VERBOSE=1 ${MAKE_PROGRAM} && ${MAKE_PROGRAM} install
+		-DCMAKE_INSTALL_PREFIX=${WRKBUILD}/deps \
+		-DLUA_BUILD_TYPE=System \
+		-DLUA_INCLUDE_DIR=${MODLUA_INCL_DIR} \
+		-DLUA_LIBRARIES=${MODLUA_LIB} \
+		-DWITH_LUA_ENGINE=Lua \
+		${WRKDIR}/${LUV} && \
+		${SETENV} VERBOSE=1 \
+		${MAKE_PROGRAM} && \
+		${MAKE_PROGRAM} install
 
 # These are the "old tests". There is also a new suite, but we would need the
 # "busted" test suite for Lua, which is not yet ported.
