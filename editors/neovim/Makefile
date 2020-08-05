@@ -4,7 +4,7 @@ COMMENT =	continuation and extension of Vim
 
 GH_ACCOUNT =	neovim
 GH_PROJECT =	neovim
-GH_TAGNAME =	v0.4.3
+GH_TAGNAME =	v0.4.4
 
 CATEGORIES =	editors devel
 HOMEPAGE =	https://neovim.io
