@@ -101,9 +101,6 @@ pre-configure:
 
 # These are the "old tests". There is also a new suite, but we would need the
 # "busted" test suite for Lua, which is not yet ported.
-#
-# There is currently one (minor) test failure:
-# https://github.com/neovim/neovim/issues/10420
 do-test:
 	cd ${WRKSRC}/src/nvim/testdir && ${SETENV} LC_CTYPE=en_US.UTF-8 \
 		${MAKE_PROGRAM} NVIM_PRG=${WRKBUILD}/bin/nvim ${MAKE_FLAGS}
