@@ -1,3 +1,0 @@
-"luv" provides libuv bindings for LuaJIT and Lua 5.1/5.2/5.3.
-libluv provides this in the form of a shared library (rather than
-as a Lua extension).

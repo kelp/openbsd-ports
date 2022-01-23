@@ -1,8 +1,0 @@
-@comment $OpenBSD: PLIST,v$
-include/luv/
-include/luv/lhandle.h
-include/luv/lreq.h
-include/luv/luv.h
-include/luv/util.h
-@lib lib/libluv.so.${LIBluv_VERSION}
-lib/pkgconfig/libluv.pc
